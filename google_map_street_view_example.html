@@ -20,16 +20,28 @@
     <div id="map"></div>
     <div id="pano"></div>
     <script>
-
+      function findGetParameter(parameterName) {
+          var result = null,
+              tmp = [];
+          var items = location.search.substr(1).split("&");
+          for (var index = 0; index < items.length; index++) {
+              tmp = items[index].split("=");
+              if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+          }
+          return result;
+      }
       function initialize() {
-        var fenway = {lat: 40.743261, lng: -73.991336};
+        var lat_lon = findGetParameter("center").split(",");
+        var lat = lat_lon[0];
+        var lon = lat_lon[1];
+        var center = {lat: lat, lng: lon};
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: fenway,
+          center: center,
           zoom: 14
         });
         var panorama = new google.maps.StreetViewPanorama(
             document.getElementById('pano'), {
-              position: fenway,
+              position: center,
               pov: {
                 heading: 34,
                 pitch: 10
