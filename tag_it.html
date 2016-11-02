@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Tag This Transaction</title>
+  <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript">
+    function toggleColor1() {
+      $("#btn1").toggleClass("gray");
+      $("#btn1").toggleClass("blue");  
+    }
+    function toggleColor2() {
+      $("#btn2").toggleClass("gray");
+      $("#btn2").toggleClass("blue");  
+    }
+    function toggleColor3() {
+      $("#btn3").toggleClass("gray");
+      $("#btn3").toggleClass("blue");  
+    }
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="center">
+  <button id="btn1" class="buttonProps gray" onclick="toggleColor1()">Expenses</button>
+  <button id="btn2" class="buttonProps gray" onclick="toggleColor2()">Florida Trip</button>
+  <button id="btn3" class="buttonProps gray" onclick="toggleColor3()">Suspected Fraud</button>
+</div>
+
+
+</body>
+</html>
