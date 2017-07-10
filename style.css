@@ -34,14 +34,14 @@ footer {
   font-size: small;
 }
 
-.ocks-org header aside,
-.ocks-org footer aside {
+header aside,
+footer aside {
   float: left;
   margin-right: .5em;
 }
 
-.ocks-org header aside:after,
-.ocks-org footer aside:after {
+header aside:after,
+footer aside:after {
   padding-left: .5em;
   content: "/";
 }
