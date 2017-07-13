@@ -26,7 +26,7 @@ text.active {
 
 <h1><i>Les Misérables</i> Co-occurrence</h1>
 
-<aside style="margin-top:80px;">
+<aside style="margin-top:80px;margin-left:80px;">
 <p>Order: <select id="order">
   <option value="name">by Name</option>
   <option value="count">by Frequency</option>
@@ -48,7 +48,7 @@ var x = d3.scaleBand().rangeRound([0, width]),
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-    .style("margin-left", -margin.left + "px")
+    .style("margin-left", margin.left + "px")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
