@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // // Load the Visualization API and the piechart package.
+      // google.charts.load('current', {'packages':['corechart']});
+
+      // // Set a callback to run when the Google Visualization API is loaded.
+      // google.charts.setOnLoadCallback(drawChart);
+
+      // // Callback that creates and populates a data table,
+      // // instantiates the pie chart, passes in the data and
+      // // draws it.
+      // function drawChart() {
+
+      //   // Create the data table.
+      //   var data = new google.visualization.DataTable();
+      //   data.addColumn('string', 'Topping');
+      //   data.addColumn('number', 'Slices');
+      //   data.addRows([
+      //     ['Mushrooms', 3],
+      //     ['Onions', 1],
+      //     ['Olives', 1], 
+      //     ['Zucchini', 1],
+      //     ['Pepperoni', 2]
+      //   ]);
+
+      //   // Set chart options
+      //   var options = {'title':'How Much Pizza I Ate Last Night',
+      //                  'width':400,
+      //                  'height':300};
+ 
+      //   // Instantiate and draw our chart, passing in some options.
+      //   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
+      //   function selectHandler() {
+      //     var selectedItem = chart.getSelection()[0];
+      //     if (selectedItem) {
+      //       var topping = data.getValue(selectedItem.row, 0);
+      //       alert('The user selected ' + topping);
+      //     }
+      //   }
+
+      //   google.visualization.events.addListener(chart, 'select', selectHandler);    
+      //   chart.draw(data, options);
+      // }
+
+
+
+      // Load the Visualization API and the piechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'City');
+    data.addColumn('number', 'Foo');
+    data.addColumn('number', 'Foo');
+    data.addColumn('number', 'Bar');
+    data.addColumn('number', 'Bar');
+    data.addColumn('number', 'Baz');
+    data.addColumn('number', 'Baz');
+    data.addRow(['Boston', 5, null, 7, null, 2, null]);
+    data.addRow(['New York', 4, null, 8, null, 5, null]);
+    data.addRow(['Baltimore', 6, null, 2, null, 4, null]);
+    
+    /*  define the series object
+     *  follows the standard 'series' option parameters, except it has two additonal parameters:
+     *    hidden: true if the column is currently hidden
+     *    altColor: changes the color of the legend entry (used to grey out hidden entries)
+     */
+    var series = {
+        0: {
+            hidden: false,
+            visibleInLegend: false,
+            color: '#FF0000'
+        },
+        1: {
+            hidden: false,
+            color: '#FF0000',
+            altColor: '#808080'
+        },
+        2: {
+            hidden: false,
+            visibleInLegend: false,
+            color: '#00FF00'
+        },
+        3: {
+            hidden: false,
+            color: '#00FF00',
+            altColor: '#808080'
+        },
+        4: {
+            hidden: false,
+            visibleInLegend: false,
+            color: '#0000FF'
+        },
+        5: {
+            hidden: false,
+            color: '#0000FF',
+            altColor: '#808080'
+        }
+    };
+    var options = {
+        series: series,
+        height: 400,
+        width: 600
+    };
+    
+    var view = new google.visualization.DataView(data);
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    
+
+
+        function selectHandler() {
+
+
+        // if row is undefined, we clicked on the legend
+        if (typeof chart.getSelection()[0]['row'] === 'undefined') {
+            // column is the DataView column, not DataTable column
+            // so translate and subtract 1 to get the series index
+            var col = view.getTableColumnIndex(chart.getSelection()[0]['column']) - 1;
+            
+            // toggle the selected column's data counterpart visibility
+            series[col - 1].hidden = !series[col - 1].hidden;
+            
+            // swap colors
+            var tmpColor = series[col].color;
+            series[col].color = series[col].altColor;
+            series[col].altColor = tmpColor;
+            
+            // reset the view's columns
+            view.setColumns([0,1,2,3,4,5,6]);
+            
+            // build list of hidden columns and series options
+            var hiddenCols = [];
+            options.series = [];
+            for (var i = 0; i < 6; i++) {
+                if (series[i].hidden) {
+                    // add 1 to the series index to get DataTable column
+                    hiddenCols.push(i + 1);
+                }
+                else {
+                    options.series.push(series[i]);
+                }
+            }
+            
+            // hide the columns and draw the chart
+            view.hideColumns(hiddenCols);
+            chart.draw(view, options);
+          }
+
+
+        }
+
+        google.visualization.events.addListener(chart, 'select', selectHandler);    
+
+        chart.draw(data, options);
+      }
+
+
+
+
+    </script>
+  </head>
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div" style="width:800; height:500"></div>
+  </body>
+</html>
